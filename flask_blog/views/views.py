@@ -3,17 +3,6 @@ from flask import request, redirect, url_for, render_template, flash, session
 from flask_blog import app
 
 
-# URL: /にリクエストがあったときのルーティング処理
-# GETメソッド使用（デフォルト）
-@app.route("/")
-def show_entries():
-    # ログインしているか否かの判別
-    if not session.get("logged_in"):
-        return redirect("/login")
-    # index.htmlに移動
-    return render_template("entries/index.html")
-
-
 # URL: /loginにリクエストがあったときのルーティング処理
 # GET, POSTメソッド使用
 @app.route("/login", methods=["GET", "POST"])

@@ -7,4 +7,4 @@ app.config.from_object("flask_blog.config")
 # 他のプログラムはdbという変数を参照することでデータベースを扱えるようになった
 db = SQLAlchemy(app)
 
-import flask_blog.views
+from flask_blog.views import views, entries
