@@ -13,7 +13,7 @@ class Entry(db.Model):
     # 本文
     text = db.Column(db.Text)
     # 投稿日時
-    created_at = db.Column(db.Datetime)
+    created_at = db.Column(db.DateTime)
 
     # モデルが作成されたときの標準の動作を定義
     def __init__(self, title=None, text=None):
