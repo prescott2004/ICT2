@@ -1,0 +1,22 @@
+<!-- #flask_blog/templates/search.html -->
+
+<title>RA_Search</title>
+
+{% extends "layout.html" %}
+{% block body %}
+
+<body>
+    <h3>検索</h3>
+
+    <form action="/search" method="get">
+        <input type="text" name="q" placeholder="検索キーワードを入力">
+        <inputut type="submit" value="検索">
+    </form>
+
+
+    <br><br><br>
+
+    <h5>・検索結果</h10> <br>
+</body>
+
+{% endblock %}
