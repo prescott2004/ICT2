@@ -105,17 +105,15 @@ def logout():
     # ログインページに移動
     return redirect(url_for("login"))
 
-@app.route('/chat')
-def chat():
-    return render_template('chat.html')
 
-@app.route('/search')
+@app.route("/search")
 def search():
-    return render_template('search.html')
-    #if 検索ボタンが押された場合に,ボックス内の文字を"ユーザ名" or "team名"で検索
+    return render_template("search.html")
+    # if 検索ボタンが押された場合に,ボックス内の文字を"ユーザ名" or "team名"で検索
 
-@app.route('/option')
+
+@app.route("/option")
 def option():
-    return render_template('option.html')
-    #セッションからユーザ名などを取得
+    return render_template("option.html")
+    # セッションからユーザ名などを取得
     #
