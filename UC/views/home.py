@@ -13,8 +13,8 @@ def show_home():
 
 
 # URL: /newにリクエストがあったときのルーティング処理
+# 新規グループ作成
 @app.route("/new", methods=["GET", "POST"])
 @is_logined
-def new_message():
-    # 新規投稿
+def new_group():
     return render_template("/home/index.html", user=session["user"])

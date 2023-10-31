@@ -28,9 +28,9 @@
                 </li>
                 <!-- ログインの場合のみ表示 -->
                 {% else %}
-                <li class="nav-item"><a href="{{ url_for('new_message')}}" class="nav-link">新規投稿
+                <li class="nav-item"><a href="{{ url_for('new_group')}}" class="nav-link">新規グループ作成
                     </a></li>
-                <li class="nav-item"><a href="{{ url_for('show_chatgroups')}}" class="nav-link">チャット
+                <li class="nav-item"><a href="{{ url_for('show_groups')}}" class="nav-link">チャット
                     </a></li>
                 <li class="nav-item">
                     <a class="nav-link" href="{{ url_for('search') }}">検索</a>

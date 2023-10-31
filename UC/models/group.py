@@ -8,3 +8,5 @@ class Group(db.Model):
     __tablename__ = "group"
     # id(プライマリーキー)
     id = db.Column(db.Integer, primary_key=True)
+    # タイトル
+    title = db.Column(db.Text)
