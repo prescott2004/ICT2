@@ -12,7 +12,7 @@ from UC.models.chat import Chat
 def show_groups():
     """修正箇所"""
     # 全グループを取得
-    groups = Group.query.order_by(Group.id.desc()).all()
+    groups = Group.query.all()
     # 参加しているチャットグループ一覧を表示
     return render_template("chats/groups.html", groups=groups)
 
@@ -22,6 +22,24 @@ def show_groups():
 @is_logined
 def show_chats(id):
     group = Group.query.get(id)
-    chats = Chat.query.filter(Chat.group == group)
+    chats = (
+        Chat.query.filter(Chat.group_id == group.id)
+        .order_by(Chat.time_post.asc())
+        .all()
+    )
     # チャット画面に移動
-    return render_template("chats/chats.html", group=group, chats=chats)
+    return render_template(
+        "chats/chats.html", user=session["user"], group=group, chats=chats
+    )
+
+
+# チャット送信
+@app.route("/chats/send/<int:user_id>/<int:group_id>", methods=["POST"])
+@is_logined
+def send_chat(user_id, group_id):
+    # チャット作成
+    chat = Chat(user_id=user_id, group_id=group_id, text=request.form["text"])
+    db.session.add(chat)
+    db.session.commit()
+    # ページ更新
+    return redirect(url_for("show_chats", id=group_id))
