@@ -123,16 +123,16 @@ def create_group():
         group = (
             db.session.query(Group)
             .filter(
-                Group.title == request.form["title"],
+                Group.title == request.form["group_name"],
             )
             .first()
         )
         # デバッグ用
         #print(f"登録ユーザ: {user}")
         # ユーザが登録されていない場合
-        if user is None:
-            user = Group(
-                title=request.form["title"]
+        if group is None:
+            group = Group(
+                title=request.form["group_name"]
             )
             db.session.add(group)
             db.session.commit()

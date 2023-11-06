@@ -17,4 +17,4 @@ def show_home():
 @app.route("/new", methods=["GET", "POST"])
 @is_logined
 def new_group():
-    return render_template("/home/create_group.html", user=session["user"])
+    return render_template("/home/index.html", user=session["user"])

@@ -8,27 +8,24 @@ from UC.models.chat import Chat
 # URL: /chatsにリクエストがあったときのルーティング処理
 # 参加しているグループを表示
 @app.route("/create_group",methods=["GET", "POST"])
-@is_logined
 def create_group():
     # 参加しているチャットグループ一覧を表示
         # ログインしていたらホームに遷移
-    if session.get("logged_in"):
-        return redirect(url_for("show_home"))
     # POSTメソッドでリクエストがあったとき, ユーザ登録
     if request.method == "POST":
         group = (
             db.session.query(Group)
             .filter(
-                Group.title == request.form["title"],
+                Group.title == request.form["group_name"],
             )
             .first()
         )
         # デバッグ用
         #print(f"登録ユーザ: {user}")
         # ユーザが登録されていない場合
-        if user is None:
-            user = Group(
-                title=request.form["title"]
+        if group is None:
+            group = Group(
+                title=request.form["group_name"]
             )
             db.session.add(group)
             db.session.commit()
