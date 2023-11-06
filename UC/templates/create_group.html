@@ -1,0 +1,14 @@
+{% extends "layout.html" %}
+{% block body %}
+<form action="/create_group" method=post>
+    <div class="form-group">
+        <label for="InputTitle">グループ名</label>
+        <input type="text" class="form-control" id="InputTitle" name="group_name">
+    </div>
+    <div class="form-group">
+        <label for="InputTitle">グループ説明</label>
+        <input type="text" class="form-control" id="InputTitle" name="group_explain">
+    </div>
+    <button type="submit" class="btn btn-primary">登録</button>
+</form>
+{% endblock %}

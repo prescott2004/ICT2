@@ -14,3 +14,10 @@ class Group(db.Model):
     title = db.Column(db.Text, nullable=False)
     # Chatテーブルにgroupという名前で参照させてあげることを宣言
     chat = db.relationship("Chat", backref="groups")
+
+    def __init__(self,title,id,chat) -> None:
+        self.time_create = datetime.now()
+        self.title = title
+        self.id = id
+        self.chat = chat
+    
