@@ -1,47 +1,54 @@
 {% extends "layout.html" %}
 {% block body %}
-<div class="container">
 <h3 class="text-left">
-    <a href="{{ url_for('show_groups') }}">←</a>
-    {{ group.title }}
+  <a href="{{ url_for('show_groups') }}">←</a>
+  {{ group.title }}
 </h3>
-<div class="messaging">
-      <div class="inbox_msg">
-        <div class="mesgs">
-          <div class="msg_history">
-            {% for chat in chats %}
-                {% if chat.user_id == user["id"] %}
-                <div class="outgoing_msg">
-                  <div class="sent_msg">
-                      <span class="time_date"> {{ chat.get_time_post_str() }} </span> 
-                      <p>{{ chat.text }}</p>
-                    </div>
-                </div>
-                {% else %}
-                <div class="incoming_msg">
-                <div class="incoming_msg_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>
-                <div class="received_msg">
-                    <div class="received_withd_msg">
-                        <span class="time_date"> {{ chat.get_time_post_str() }} </span>
-                        <p>{{ chat.text }}</p>
-                    </div>
-                </div>
-                </div>
-                {% endif %}
-            {% else %}
-            投稿がありません
-            {% endfor %}
-          </div>
-          <div class="type_msg">
-            <form action="{{ url_for('send_chat', user_id = user['id'], group_id = group.id) }}" method="post">
-                <div class="input_msg_write">
-                    <textarea type="text" name="text" class="write_msg" placeholder="メッセージを入力..." /></textarea>
-                    <button class="msg_send_btn" type="submit"><i class="fa fa-paper-plane-o" aria-hidden="true"></i></button>
-                </div>
-            </form>
+<div class="pb-50 overflow-hidden border border-1">
+  <div class="pt-30 pr-15 pl-25 h-auto">
+    <div class="msg_history">
+      {% for chat in chats %}
+      {% if chat.user_id == user["id"] %}
+      <div class="outgoing_msg">
+        <div class="sent_msg">
+          <span class="time_date"> {{ chat.get_time_post_str() }} </span>
+          <p>{{ chat.text }}</p>
+        </div>
+      </div>
+      {% else %}
+      <div class="incoming_msg">
+        <div class="incoming_msg_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil">
+        </div>
+        <div class="received_msg">
+          <div class="received_withd_msg">
+            <span class="time_date"> {{ chat.get_time_post_str() }} </span>
+            <p>{{ chat.text }}</p>
           </div>
         </div>
       </div>
+      {% endif %}
+      {% else %}
+      投稿がありません
+      {% endfor %}
     </div>
+    <div class="type_msg">
+      <form action="{{ url_for('send_chat', user_id = user['id'], group_id = group.id) }}" method="post"
+        enctype="multipart/form-data" class="form-group">
+        <div class="d-flex">
+          <!-- テキスト入力 -->
+          <textarea type="text" name="text" placeholder="メッセージを入力..." class="form-control flex-grow-1"></textarea>
+          <!-- ファイル入力 -->
+          <div class="custom-file">
+            <input type="file" name="file" class="custom-file-input" id="inputFile">
+            <label for="inputFile" class="custom-file-label" data-browse="参照">ファイルを選択...</label>
+          </div>
+          <button class="msg_send_btn" type="submit"><i class="fa fa-paper-plane-o" aria-hidden="true"></i></button>
+        </div>
+      </form>
+    </div>
+  </div>
 </div>
+<script>
+  bsCustomFileInput.init();
+</script>
 {% endblock %}

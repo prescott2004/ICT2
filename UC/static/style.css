@@ -5,7 +5,6 @@ a:visited {
 }
 
 .container {
-    max-width: 1170px;
     margin: auto;
 }
 
@@ -14,11 +13,6 @@ img {
 }
 
 
-.inbox_msg {
-    border: 1px solid #c4c4c4;
-    clear: both;
-    overflow: hidden;
-}
 
 
 .incoming_msg_img {
@@ -54,10 +48,6 @@ img {
     width: 57%;
 }
 
-.mesgs {
-    float: center;
-    padding: 30px 15px 0 25px;
-}
 
 .sent_msg p {
     background: #05728f none repeat scroll 0 0;
@@ -79,20 +69,24 @@ img {
     width: 46%;
 }
 
+.input_msg_write {
+    display: flex;
+    justify-content: flex-start;
+}
+
 .input_msg_write textarea {
     background: rgba(0, 0, 0, 0) none repeat scroll 0 0;
     border: medium none;
     color: #4c4c4c;
     font-size: 15px;
     min-height: 48px;
-    width: 90%;
+    width: 80%;
 }
 
 .type_msg {
     border-top: 1px solid #c4c4c4;
     position: relative;
 }
-
 
 .msg_send_btn {
     background: #05728f none repeat scroll 0 0;
@@ -102,17 +96,14 @@ img {
     cursor: pointer;
     font-size: 17px;
     height: 33px;
-    position: absolute;
+    /* position: absolute; */
     right: 0;
     top: 11px;
     width: 33px;
 }
 
-.messaging {
-    padding: 0 0 50px 0;
-}
 
-.msg_history {
+/* .msg_history {
     height: 600px;
     overflow-y: auto;
-}
+} */
