@@ -15,80 +15,75 @@ img {
 
 
 
-.incoming_msg_img {
+.chats_msg_me>p {
+    background: #05728f none repeat scroll 0 0;
+    border-radius: 5px;
+    font-size: 14px;
+    margin: 0;
+    color: #fff;
+    padding: 5px 10px 5px 12px;
+    width: 100%;
     display: inline-block;
-    width: 6%;
 }
 
-.received_msg {
+.chats_msg_me {
+    float: right;
+    max-width: 60%;
+    margin-right: 5px;
+}
+
+.chats_msg_you img {
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    margin-right: 5px;
+}
+
+.chats_msg_you {
     display: inline-block;
     padding: 0 0 0 10px;
     vertical-align: top;
-    width: 92%;
+    max-width: 60%;
 }
 
-.received_withd_msg p {
+.chats_msg_you_name {
+    font-size: 12px;
+}
+
+.chats_msg_you_content {
     background: #ebebeb none repeat scroll 0 0;
-    border-radius: 3px;
+    border-radius: 5px;
     color: #646464;
     font-size: 14px;
     margin: 0;
     padding: 5px 10px 5px 12px;
     width: 100%;
+    display: inline-block;
 }
 
-.time_date {
+.chats_msg_time {
     color: #747474;
     display: block;
     font-size: 12px;
     margin: 8px 0 0;
 }
 
-.received_withd_msg {
-    width: 57%;
-}
 
-
-.sent_msg p {
-    background: #05728f none repeat scroll 0 0;
-    border-radius: 3px;
-    font-size: 14px;
-    margin: 0;
-    color: #fff;
-    padding: 5px 10px 5px 12px;
+.chats_input textarea {
+    color: #4c4c4c;
+    /* font-size: 15px; */
+    line-height: 1.2;
+    height: 2.5em;
     width: 100%;
 }
 
-.outgoing_msg {
-    overflow: hidden;
-    margin: 26px 0 26px;
-}
-
-.sent_msg {
-    float: right;
-    width: 46%;
-}
-
-.input_msg_write {
-    display: flex;
-    justify-content: flex-start;
-}
-
-.input_msg_write textarea {
-    background: rgba(0, 0, 0, 0) none repeat scroll 0 0;
-    border: medium none;
-    color: #4c4c4c;
-    font-size: 15px;
-    min-height: 48px;
-    width: 80%;
-}
-
-.type_msg {
+.chats_input {
     border-top: 1px solid #c4c4c4;
     position: relative;
+    padding-top: 1px 1px 1px 1px;
 }
 
-.msg_send_btn {
+.chats_input_send {
     background: #05728f none repeat scroll 0 0;
     border: medium none;
     border-radius: 50%;
@@ -96,14 +91,14 @@ img {
     cursor: pointer;
     font-size: 17px;
     height: 33px;
-    /* position: absolute; */
     right: 0;
     top: 11px;
     width: 33px;
+    margin: 1px 5px 1px 1px;
 }
 
 
-/* .msg_history {
-    height: 600px;
+.chats_msgs {
+    height: 80vh;
     overflow-y: auto;
-} */
+}

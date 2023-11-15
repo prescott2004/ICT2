@@ -3,14 +3,16 @@
 <h5 class="title">参加中のグループ</h5>
 <ul class="list-group list-group-flush">
     {% for group in groups %}
-    <div class="card">
-        <div class="card-body">
+    <div class="card mt-1">
             <!-- <h5 class="card-title">{{ group.title }}</h5> -->
-            <a href="{{ url_for('show_chats', id=group.id )}}" class="card-title">{{ group.title }}</a>
-        </div>
+            <a class="list-group-item list-group-item-action list-group-item-light" href="{{ url_for('show_chats', id=group.id )}}" class="card-title">
+                <h6 class="card-title">{{ group.title }}</h6>
+                <p class="card-text">{{ group.show_description() }}</p>
+            </a>
     </div>
     {% else %}
-    グループがありません
+    <h6>グループがありません</h6>
+    
     {% endfor %}
 </ul>
 {% endblock %}

@@ -1,28 +1,54 @@
 {% extends "layout.html" %}
 {% block body %}
 <h3 class="text-left">
-  <a href="{{ url_for('show_groups') }}">←</a>
+  <a class="btn btn-light" href="{{ url_for('show_groups') }}"><h3>←</h3></a>
   {{ group.title }}
 </h3>
 <div class="pb-50 overflow-hidden border border-1">
-  <div class="pt-30 pr-15 pl-25 h-auto">
-    <div class="msg_history">
+  <div class="pt-30 pr-15 pl-25">
+    <div class="chats_msgs">
       {% for chat in chats %}
       {% if chat.user_id == user["id"] %}
-      <div class="outgoing_msg">
-        <div class="sent_msg">
-          <span class="time_date"> {{ chat.get_time_post_str() }} </span>
-          <p>{{ chat.text }}</p>
+      <div class="overflow-hidden my-26">
+        <div class="chats_msg_me">
+          <span class="chats_msg_time text-right mr-2"> {{ chat.get_time_post_str() }} </span>
+          <p>
+          {% if chat.text != "" %}
+            {{ chat.text }}
+          {% endif %}
+          {% if chat.file_name != "" %}
+            <span class="d-flex">
+                <i class="fa fa-file-o pr-2 pt-1" aria-hidden="true"></i>
+                <a class="font-weight-bold text-decoration-underline" href="{{ url_for('download_file', file_name = chat.file_name, user_id = chat.user_id, group_id = chat.group_id, time_post_str = chat.get_time_post_linkstr()) }}"> {{ chat.file_name }}</a>
+            </span>
+          {% endif %}
+          </p>
         </div>
       </div>
       {% else %}
-      <div class="incoming_msg">
-        <div class="incoming_msg_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil">
-        </div>
-        <div class="received_msg">
-          <div class="received_withd_msg">
-            <span class="time_date"> {{ chat.get_time_post_str() }} </span>
-            <p>{{ chat.text }}</p>
+      <div>
+        <span class="chats_msg_time text-left ml-5"> {{ chat.get_time_post_str() }} </span>
+        <div class="chats_msg_you d-flex">
+          <span>
+            <a href="{{ url_for ('show_profile', user_id = chat.user_id) }}">
+              <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil">
+            </a>
+          </span>
+          <div>
+            <div class="chats_msg_you_name">
+              <a href="{{ url_for ('show_profile', user_id = chat.user_id) }}">{{ chat.get_user_name() }}</a>
+            </div>
+            <div class="chats_msg_you_content">
+              {% if chat.text != "" %}
+                {{ chat.text }}
+              {% endif %}
+              {% if chat.file_name != "" %}
+                <span class="d-flex">
+                    <i class="fa fa-file-o pr-2 pt-1" aria-hidden="true"></i>
+                    <a class="font-weight-bold text-decoration-underline" href="{{ url_for('download_file', file_name = chat.file_name, user_id = chat.user_id, group_id = chat.group_id, time_post_str = chat.get_time_post_linkstr()) }}"> {{ chat.file_name }}</a>
+                </span>
+              {% endif %}
+            </div>
           </div>
         </div>
       </div>
@@ -31,18 +57,18 @@
       投稿がありません
       {% endfor %}
     </div>
-    <div class="type_msg">
+    <div class="chats_input">
       <form action="{{ url_for('send_chat', user_id = user['id'], group_id = group.id) }}" method="post"
         enctype="multipart/form-data" class="form-group">
         <div class="d-flex">
           <!-- テキスト入力 -->
-          <textarea type="text" name="text" placeholder="メッセージを入力..." class="form-control flex-grow-1"></textarea>
+          <textarea type="text" name="text" placeholder="メッセージを入力..." class="form-control flex-grow-1 mr-1"></textarea>
           <!-- ファイル入力 -->
-          <div class="custom-file">
+          <div class="custom-file mr-1">
             <input type="file" name="file" class="custom-file-input" id="inputFile">
             <label for="inputFile" class="custom-file-label" data-browse="参照">ファイルを選択...</label>
           </div>
-          <button class="msg_send_btn" type="submit"><i class="fa fa-paper-plane-o" aria-hidden="true"></i></button>
+          <button class="chats_input_send" type="submit"><i class="fa fa-paper-plane-o" aria-hidden="true"></i></button>
         </div>
       </form>
     </div>

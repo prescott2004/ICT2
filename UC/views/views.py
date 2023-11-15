@@ -116,28 +116,3 @@ def option():
     return render_template("option.html")
     # セッションからユーザ名などを取得
     #
-@app.route("/create_group",methods=["GET", "POST"])
-@is_logined
-def create_group():
-    if request.method == "POST":
-        group = (
-            db.session.query(Group)
-            .filter(
-                Group.title == request.form["group_name"],
-            )
-            .first()
-        )
-        # デバッグ用
-        #print(f"登録ユーザ: {user}")
-        # ユーザが登録されていない場合
-        if group is None:
-            group = Group(
-                title=request.form["group_name"]
-            )
-            db.session.add(group)
-            db.session.commit()
-            # ログインページに移動
-            flash("グループが登録されました")
-            return redirect(url_for("create_group"))
-    # POSTメソッド以外の場合、ユーザ登録ページに移動
-    return render_template("create_group.html")

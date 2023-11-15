@@ -1,5 +1,6 @@
 from UC import db
 from datetime import datetime
+from UC.models.user import User
 
 
 # モデル: チャット
@@ -16,13 +17,30 @@ class Chat(db.Model):
     group_id = db.Column(db.Integer, db.ForeignKey("groups.id"), nullable=False)
     # テキスト
     text = db.Column(db.Text)
+    # ファイル
+    file_name = db.Column(db.Text)
 
     # モデルが作成されたときの標準の動作を定義
-    def __init__(self, user_id, group_id, text) -> None:
-        self.time_post = datetime.now()
+    def __init__(
+        self,
+        user_id,
+        group_id,
+        time_post,
+        text=None,
+        file_name=None,
+    ) -> None:
         self.user_id = user_id
         self.group_id = group_id
+        self.time_post = time_post
         self.text = text
+        self.file_name = file_name
 
     def get_time_post_str(self):
         return self.time_post.strftime("%Y/%m/%d %H:%M")
+
+    def get_time_post_linkstr(self):
+        return self.time_post.strftime("%Y%m%d%H%M%S")
+
+    def get_user_name(self):
+        user = User.query.get(self.user_id)
+        return f"{user.name_last} {user.name_first}"

@@ -18,6 +18,8 @@ class User(db.Model):
     password = db.Column(db.String(100), nullable=False)
     # Chatテーブルにuserという名前で参照させてあげることを宣言
     chat = db.relationship("Chat", backref="users")
+    # Groupテーブルにuserという名前で参照させてあげることを宣言
+    group = db.relationship("Group", backref="users")
 
     # モデルが作成されたときの標準の動作を定義
     def __init__(self, name_last=None, name_first=None, email=None, password=None):
