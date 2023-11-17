@@ -35,8 +35,16 @@ def signup():
         print(f"登録ユーザ: {user}")
         # ユーザが登録されていない場合
         if user is None:
+            # 必要な情報が入力されていない場合
+            if (
+                request.form["name_last"] == ""
+                or request.form["name_first"] == ""
+                or request.form["email"] == ""
+                or request.form["password"] == ""
+            ):
+                flash("必要な情報を入力してください")
             # 再入力パスワードが正しくない場合
-            if request.form["password"] != request.form["repassword"]:
+            elif request.form["password"] != request.form["repassword"]:
                 flash("パスワードが再入力と一致しません。")
             else:
                 user = User(
@@ -44,6 +52,7 @@ def signup():
                     name_first=request.form["name_first"],
                     email=request.form["email"],
                     password=request.form["password"],
+                    description=request.form["description"],
                 )
                 db.session.add(user)
                 db.session.commit()

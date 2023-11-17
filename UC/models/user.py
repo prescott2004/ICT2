@@ -1,5 +1,4 @@
 from UC import db
-from datetime import datetime
 
 
 # モデル: ユーザ
@@ -16,17 +15,27 @@ class User(db.Model):
     email = db.Column(db.String(100), unique=True, nullable=False)
     # パスワード
     password = db.Column(db.String(100), nullable=False)
+    # 自己紹介
+    description = db.Column(db.Text)
     # Chatテーブルにuserという名前で参照させてあげることを宣言
     chat = db.relationship("Chat", backref="users")
     # Groupテーブルにuserという名前で参照させてあげることを宣言
     group = db.relationship("Group", backref="users")
 
     # モデルが作成されたときの標準の動作を定義
-    def __init__(self, name_last=None, name_first=None, email=None, password=None):
+    def __init__(
+        self,
+        name_last,
+        name_first,
+        email,
+        password,
+        description,
+    ):
         self.name_last = name_last
         self.name_first = name_first
         self.email = email
         self.password = password
+        self.description = description
 
     # 実際に記事モデルが参照されたときのコンソールでの出力形式
     def __repr__(self):
@@ -40,4 +49,6 @@ class User(db.Model):
 
     # 自己紹介文を表示
     def show_description(self):
-        return "自己紹介です"
+        if len(self.description) > 200:
+            return self.description[:200] + "..."
+        return self.description
