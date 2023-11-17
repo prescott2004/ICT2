@@ -34,7 +34,8 @@ def search():
                 or_(
                     User.name_first.contains(search_query),
                     User.name_last.contains(search_query),
-                )
+                ),
+                User.id != session["user"]["id"],
             ).all()
     return render_template(
         "search/search.html",
