@@ -37,3 +37,7 @@ class User(db.Model):
     # セッションを保存する場合の形式
     def as_dict(self):
         return {c.name: getattr(self, c.name) for c in self.__table__.columns}
+
+    # 自己紹介文を表示
+    def show_description(self):
+        return "自己紹介です"

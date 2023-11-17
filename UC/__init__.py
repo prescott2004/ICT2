@@ -5,4 +5,4 @@ app = Flask(__name__)
 app.config.from_object("UC.config")
 db = SQLAlchemy(app)
 
-from UC.views import views, home, chats, profile, group
+from UC.views import views, home, chats, profile, group, search

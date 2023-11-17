@@ -62,9 +62,11 @@
         enctype="multipart/form-data" class="form-group">
         <div class="d-flex">
           <!-- テキスト入力 -->
-          <textarea type="text" name="text" placeholder="メッセージを入力..." class="form-control flex-grow-1 mr-1"></textarea>
+          <div class="w-100">
+            <textarea type="text" name="text" placeholder="メッセージを入力..." class="form-control flex-grow-1 mr-1"></textarea>
+          </div>
           <!-- ファイル入力 -->
-          <div class="custom-file mr-1">
+          <div class="custom-file mr-1 flex-shrink-1">
             <input type="file" name="file" class="custom-file-input" id="inputFile">
             <label for="inputFile" class="custom-file-label" data-browse="参照">ファイルを選択...</label>
           </div>
