@@ -35,7 +35,7 @@ def show_chats(id):
     group = Group.query.get(id)
     chats = (
         Chat.query.filter(Chat.group_id == group.id)
-        .order_by(Chat.time_post.desc())
+        .order_by(Chat.time_post.asc())
         .all()
     )
     # チャット画面に移動
