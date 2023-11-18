@@ -53,6 +53,7 @@ def signup():
                     email=request.form["email"],
                     password=request.form["password"],
                     description=request.form["description"],
+                    # affiliation=request.form["affiliation"]
                 )
                 db.session.add(user)
                 db.session.commit()

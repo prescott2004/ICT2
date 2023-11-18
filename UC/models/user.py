@@ -1,4 +1,5 @@
 from UC import db
+from datetime import datetime
 
 
 # モデル: ユーザ
@@ -17,6 +18,8 @@ class User(db.Model):
     password = db.Column(db.String(100), nullable=False)
     # 自己紹介
     description = db.Column(db.Text)
+    # 所属
+    # affiliation = db.Column(db.String(100), nullable=False)
     # Chatテーブルにuserという名前で参照させてあげることを宣言
     chat = db.relationship("Chat", backref="users")
     # Groupテーブルにuserという名前で参照させてあげることを宣言
@@ -36,11 +39,15 @@ class User(db.Model):
         self.email = email
         self.password = password
         self.description = description
+        # self.affiliation = affiliation
 
     # 実際に記事モデルが参照されたときのコンソールでの出力形式
     def __repr__(self):
-        return "<Entry id:{} name:{} {} email:{}>".format(
-            self.id, self.name_last, self.name_first, self.email
+        return "<Entry id:{} name:{} {} email:{} >".format(
+            self.id,
+            self.name_last,
+            self.name_first,
+            self.email,
         )
 
     # セッションを保存する場合の形式
