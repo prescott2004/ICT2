@@ -24,7 +24,6 @@ def show_groups():
     """修正箇所"""
     # 全グループを取得
     groups = Group.query.filter(Group.id != 0).all()
-    print(groups)
     # 参加しているチャットグループ一覧を表示
     return render_template("chats/groups.html", groups=groups)
 

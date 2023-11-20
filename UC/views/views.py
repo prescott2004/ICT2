@@ -31,8 +31,6 @@ def signup():
             )
             .first()
         )
-        # デバッグ用
-        print(f"登録ユーザ: {user}")
         # ユーザが登録されていない場合
         if user is None:
             # 必要な情報が入力されていない場合
@@ -52,14 +50,14 @@ def signup():
                     name_first=request.form["name_first"],
                     email=request.form["email"],
                     password=request.form["password"],
-                    user_type = request.form["user_type"],
+                    user_type=request.form["user_type"],
                     description=request.form["description"],
-                    affiliation=request.form["affiliation"]
+                    affiliation=request.form["affiliation"],
                 )
-                if user.description=="":
-                    user.description=" not entered "
-                if user.affiliation=="":
-                    user.affiliation="SECRET"
+                if user.description == "":
+                    user.description = " not entered "
+                if user.affiliation == "":
+                    user.affiliation = "SECRET"
                 db.session.add(user)
                 db.session.commit()
                 # ログインページに移動
@@ -90,18 +88,16 @@ def login():
             )
             .first()
         )
-        # デバッグ用
-        print(f"ログインユーザ: {user}")
         # ユーザが見つからなかった場合
         if user is None:
             flash("メールアドレスかパスワードが異なります")
         # ユーザが見つかった場合
         else:
-            print(type(user.__dict__))
             # セッション情報を保存
             session["logged_in"] = True
             session["user"] = user.as_dict()
-            if user.user_type == "company": session["company"]=True
+            if user.user_type == "company":
+                session["company"] = True
             flash("ログインしました")
             # ホームに移動
             return redirect(url_for("show_home"))

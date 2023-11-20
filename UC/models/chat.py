@@ -1,6 +1,7 @@
 from UC import db
 from datetime import datetime
 from UC.models.user import User
+import re
 
 
 # モデル: チャット
@@ -44,3 +45,17 @@ class Chat(db.Model):
     def get_user_name(self):
         user = User.query.get(self.user_id)
         return f"{user.name_last} {user.name_first}"
+
+    def get_texts_with_url(self):
+        results = []
+        texts = re.split("https?://(?:[-\w.]|(?:%[\da-fA-F]{2}))+", self.text)
+        for text in texts:
+            results.append({"content": text, "is_url": False})
+        urls = re.findall("https?://(?:[-\w.]|(?:%[\da-fA-F]{2}))+", self.text)
+        pos = 0
+        for i in range(len(results) - 1):
+            results.insert(i + pos + 1, {"content": urls[i], "is_url": True})
+            pos += 1
+
+        print(results)
+        return results

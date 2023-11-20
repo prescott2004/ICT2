@@ -6,41 +6,34 @@
       </h3>
       <div class="pb-50 overflow-hidden border border-1">
         <div class="pt-30 pr-15 pl-25">
-          <div class="chats_msgs">
+          <div class="card list-group list-group-flush chats_msgs">
             {% for chat in chats %}
-            {% if chat.user_id == user["id"] %}
-            <div class="overflow-hidden my-26">
-              <div class="chats_msg_me">
-                <span class="chats_msg_time text-right mr-2"> {{ chat.get_time_post_str() }} </span>
-                <p>
-                {% if chat.text != "" %}
-                  {{ chat.text }}
-                {% endif %}
-                {% if chat.file_name != "" %}
-                  <span class="d-flex">
-                      <i class="fa fa-file-o pr-2 pt-1" aria-hidden="true"></i>
-                      <a class="font-weight-bold text-decoration-underline" href="{{ url_for('download_file', file_name = chat.file_name, user_id = chat.user_id, group_id = chat.group_id, time_post_str = chat.get_time_post_linkstr()) }}"> {{ chat.file_name }}</a>
-                  </span>
-                {% endif %}
-                </p>
-              </div>
-            </div>
-            {% else %}
-            <div>
-              <span class="chats_msg_time text-left ml-5"> {{ chat.get_time_post_str() }} </span>
-              <div class="chats_msg_you d-flex">
+            <div class="list-group-item">
+              <span class="chats_msg_time text-left mb-1"> {{ chat.get_time_post_str() }} </span>
+              <div class="d-flex">
                 <span>
                   <a href="{{ url_for ('show_profile', user_id = chat.user_id) }}">
-                    <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil">
+                    <img class="chats_msg_you_img" src="https://ptetutorials.com/images/user-profile.png" alt="sunil">
                   </a>
                 </span>
                 <div>
-                  <div class="chats_msg_you_name">
-                    <a href="{{ url_for ('show_profile', user_id = chat.user_id) }}">{{ chat.get_user_name() }}</a>
+                  <div class="card-title chats_msg_you_name">
+                    <a href="{{ url_for ('show_profile', user_id = chat.user_id) }}">
+                    {% if chat.user_id == user["id"] %}あなた
+                    {% else %}
+                      {{ chat.get_user_name() }}
+                    {% endif %}
+                    </a>
                   </div>
-                  <div class="chats_msg_you_content">
+                  <div class="card-body home_msg_content">
                     {% if chat.text != "" %}
-                      {{ chat.text }}
+                      {% for result in chat.get_texts_with_url() %}
+                        {% if result["is_url"] %}
+                          <a style="white-space: pre-line" href="{{ result['content'] }}">{{ result['content'] }}</a>
+                        {% else %}
+                        <span style="white-space: pre-line">{{result['content']|safe}}</span>
+                        {% endif %}
+                      {% endfor %}
                     {% endif %}
                     {% if chat.file_name != "" %}
                       <span class="d-flex">
@@ -52,7 +45,6 @@
                 </div>
               </div>
             </div>
-            {% endif %}
             {% else %}
             <p class="ml-1 mt-1">投稿がありません</p>
             {% endfor %}

@@ -1,7 +1,9 @@
 {% extends "layout.html" %}
 {% block body %}
 <h3 class="text-left">
-  <a class="btn btn-light" href="{{ url_for('show_groups') }}"><h3>←</h3></a>
+  <a class="btn btn-light" href="{{ url_for('show_groups') }}">
+    <h3>←</h3>
+  </a>
   {{ group.title }}
 </h3>
 <div class="pb-50 overflow-hidden border border-1">
@@ -13,15 +15,23 @@
         <div class="chats_msg_me">
           <span class="chats_msg_time text-right mr-2"> {{ chat.get_time_post_str() }} </span>
           <p>
-          {% if chat.text != "" %}
-            {{ chat.text }}
-          {% endif %}
-          {% if chat.file_name != "" %}
+            {% if chat.text != "" %}
+            {% for result in chat.get_texts_with_url() %}
+              {% if result["is_url"] %}
+                <a style="white-space: pre-line" href="{{ result['content'] }}">{{ result['content'] }}</a>
+              {% else %}
+              <span style="white-space: pre-line">{{result['content']|safe}}</span>
+              {% endif %}
+            {% endfor %}
+            {% endif %}
+            {% if chat.file_name != "" %}
             <span class="d-flex">
-                <i class="fa fa-file-o pr-2 pt-1" aria-hidden="true"></i>
-                <a class="font-weight-bold text-decoration-underline" href="{{ url_for('download_file', file_name = chat.file_name, user_id = chat.user_id, group_id = chat.group_id, time_post_str = chat.get_time_post_linkstr()) }}"> {{ chat.file_name }}</a>
+              <i class="fa fa-file-o pr-2 pt-1" aria-hidden="true"></i>
+              <a class="font-weight-bold text-decoration-underline"
+                href="{{ url_for('download_file', file_name = chat.file_name, user_id = chat.user_id, group_id = chat.group_id, time_post_str = chat.get_time_post_linkstr()) }}">
+                {{ chat.file_name }}</a>
             </span>
-          {% endif %}
+            {% endif %}
           </p>
         </div>
       </div>
@@ -40,13 +50,21 @@
             </div>
             <div class="chats_msg_you_content">
               {% if chat.text != "" %}
-                {{ chat.text }}
+                {% for result in chat.get_texts_with_url() %}
+                  {% if result["is_url"] %}
+                    <a style="white-space: pre-line" href="{{ result['content'] }}">{{ result['content'] }}</a>
+                  {% else %}
+                  <span style="white-space: pre-line">{{result['content']|safe}}</span>
+                  {% endif %}
+                {% endfor %}
               {% endif %}
               {% if chat.file_name != "" %}
-                <span class="d-flex">
-                    <i class="fa fa-file-o pr-2 pt-1" aria-hidden="true"></i>
-                    <a class="font-weight-bold text-decoration-underline" href="{{ url_for('download_file', file_name = chat.file_name, user_id = chat.user_id, group_id = chat.group_id, time_post_str = chat.get_time_post_linkstr()) }}"> {{ chat.file_name }}</a>
-                </span>
+              <span class="d-flex">
+                <i class="fa fa-file-o pr-2 pt-1" aria-hidden="true"></i>
+                <a class="font-weight-bold text-decoration-underline"
+                  href="{{ url_for('download_file', file_name = chat.file_name, user_id = chat.user_id, group_id = chat.group_id, time_post_str = chat.get_time_post_linkstr()) }}">
+                  {{ chat.file_name }}</a>
+              </span>
               {% endif %}
             </div>
           </div>
@@ -63,7 +81,8 @@
         <div class="d-flex">
           <!-- テキスト入力 -->
           <div class="w-100">
-            <textarea type="text" name="text" placeholder="メッセージを入力..." class="form-control flex-grow-1 mr-1"></textarea>
+            <textarea type="text" name="text" placeholder="メッセージを入力..."
+              class="form-control flex-grow-1 mr-1"></textarea>
           </div>
           <!-- ファイル入力 -->
           <div class="custom-file mr-1 flex-shrink-1">

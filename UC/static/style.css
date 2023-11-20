@@ -12,13 +12,23 @@ img {
     max-width: 100%;
 }
 
+.home_msg {
+    background: #ebebeb none repeat scroll 0 0;
+}
 
-
+.home_msg_content {
+    border-radius: 5px;
+    font-size: 18px;
+    margin: 0;
+    padding: 0px 0px 0px 0px;
+    width: 100%;
+    display: inline-block;
+}
 
 .chats_msg_me>p {
     background: #05728f none repeat scroll 0 0;
     border-radius: 5px;
-    font-size: 14px;
+    font-size: 18px;
     margin: 0;
     color: #fff;
     padding: 5px 10px 5px 12px;
@@ -32,10 +42,11 @@ img {
     margin-right: 5px;
 }
 
-.chats_msg_you img {
+.chats_msg_you img,
+.chats_msg_you_img {
     display: inline-block;
-    width: 30px;
-    height: 30px;
+    width: 36px;
+    height: 36px;
     margin-right: 5px;
 }
 
@@ -47,14 +58,15 @@ img {
 }
 
 .chats_msg_you_name {
-    font-size: 12px;
+    font-size: 16px;
 }
+
 
 .chats_msg_you_content {
     background: #ebebeb none repeat scroll 0 0;
     border-radius: 5px;
     color: #646464;
-    font-size: 14px;
+    font-size: 18px;
     margin: 0;
     padding: 5px 10px 5px 12px;
     width: 100%;
@@ -64,7 +76,7 @@ img {
 .chats_msg_time {
     color: #747474;
     display: block;
-    font-size: 12px;
+    font-size: 16px;
     margin: 8px 0 0;
 }
 
