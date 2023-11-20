@@ -44,21 +44,41 @@
                 <li class="nav-item">
                     <a class="nav-link" href="{{ url_for('login') }}">ログイン</a>
                 </li>
+
                 <!-- ログインの場合のみ表示 -->
                 {% else %}
-                <li class="nav-item"><a href="{{ url_for('create_group')}}" class="nav-link">新規グループ作成
-                    </a></li>
-                <li class="nav-item"><a href="{{ url_for('show_groups')}}" class="nav-link">チャット
-                    </a></li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ url_for('search') }}">検索</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ url_for('show_profile',user_id=session['user']['id']) }}">プロフィール</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ url_for('logout') }}">ログアウト</a>
-                </li>
+                    <!-- 企業でない場合(学生・教員)の表示 -->
+                    {% if not session.company %}
+                    <li class="nav-item"><a href="{{ url_for('create_group')}}" class="nav-link">新規グループ作成
+                        </a></li>
+                    <li class="nav-item"><a href="{{ url_for('show_groups')}}" class="nav-link">チャット
+                        </a></li>
+                    <li class="nav-item"><a href="{{ url_for('show_scouted', user_id = session.user['id'])}}" class="nav-link">スカウト確認
+                        </a></li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('search') }}">検索</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('show_profile',user_id=session['user']['id']) }}">プロフィール</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('logout') }}">ログアウト</a>
+                    </li>
+
+                    <!-- 企業の場合の表示 -->
+                    {% else %}
+                    <li class="nav-item"><a href="{{ url_for('show_scout', user_id = session.user['id'])}}" class="nav-link">スカウト確認
+                        </a></li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('search_students') }}">スカウト検索</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('show_profile',user_id=session['user']['id']) }}">プロフィール</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('logout') }}">ログアウト</a>
+                    </li>
+                    {% endif %}
 
                 {% endif %}
             </ul>

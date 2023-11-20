@@ -52,9 +52,14 @@ def signup():
                     name_first=request.form["name_first"],
                     email=request.form["email"],
                     password=request.form["password"],
+                    user_type = request.form["user_type"],
                     description=request.form["description"],
-                    # affiliation=request.form["affiliation"]
+                    affiliation=request.form["affiliation"]
                 )
+                if user.description=="":
+                    user.description=" not entered "
+                if user.affiliation=="":
+                    user.affiliation="SECRET"
                 db.session.add(user)
                 db.session.commit()
                 # ログインページに移動
@@ -96,6 +101,7 @@ def login():
             # セッション情報を保存
             session["logged_in"] = True
             session["user"] = user.as_dict()
+            if user.user_type == "company": session["company"]=True
             flash("ログインしました")
             # ホームに移動
             return redirect(url_for("show_home"))
@@ -110,6 +116,7 @@ def logout():
     # セッション情報を削除
     session.pop("logged_in", None)
     session.pop("user", None)
+    session.pop("company", None)
     flash("ログアウトしました")
     # ログインページに移動
     return redirect(url_for("login"))

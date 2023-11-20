@@ -23,7 +23,8 @@ import datetime
 def show_groups():
     """修正箇所"""
     # 全グループを取得
-    groups = Group.query.all()
+    groups = Group.query.filter(Group.id != 0).all()
+    print(groups)
     # 参加しているチャットグループ一覧を表示
     return render_template("chats/groups.html", groups=groups)
 
@@ -77,6 +78,9 @@ def send_chat(user_id, group_id):
         db.session.add(chat)
         db.session.commit()
     # ページ更新
+    if group_id == 0:
+        return redirect(url_for("show_home"))
+
     return redirect(url_for("show_chats", id=group_id))
 
 

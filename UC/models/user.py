@@ -16,10 +16,12 @@ class User(db.Model):
     email = db.Column(db.String(100), unique=True, nullable=False)
     # パスワード
     password = db.Column(db.String(100), nullable=False)
+    # ユーザタイプ(学生・企業・教員)
+    user_type = db.Column(db.String(10), nullable=False)
     # 自己紹介
     description = db.Column(db.Text)
     # 所属
-    # affiliation = db.Column(db.String(100), nullable=False)
+    affiliation = db.Column(db.String(100), nullable=True)
     # Chatテーブルにuserという名前で参照させてあげることを宣言
     chat = db.relationship("Chat", backref="users")
     # Groupテーブルにuserという名前で参照させてあげることを宣言
@@ -32,14 +34,17 @@ class User(db.Model):
         name_first,
         email,
         password,
+        user_type,
         description,
+        affiliation
     ):
         self.name_last = name_last
         self.name_first = name_first
         self.email = email
         self.password = password
+        self.user_type = user_type
         self.description = description
-        # self.affiliation = affiliation
+        self.affiliation = affiliation
 
     # 実際に記事モデルが参照されたときのコンソールでの出力形式
     def __repr__(self):
